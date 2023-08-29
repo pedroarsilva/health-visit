@@ -1,0 +1,35 @@
+.rodape {
+  background-color: var(--azul-escuro);
+  color: var(--branco);
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: .5rem;
+  margin-top: 32px;
+  padding-bottom: 50px;
+}
+
+.cactocode {
+  position: absolute;
+  left: 0;
+  top: 860px;
+}
+
+img{
+  width: 128px;  
+}
+
+@media (max-width: 768px) {
+  img {
+    display: none;
+  }
+}
+
+@media (max-width: 425px) {
+  .rodape > img {
+    display: none;
+
+  }
+}
+
