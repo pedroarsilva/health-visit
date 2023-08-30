@@ -6,8 +6,9 @@
   justify-content: center;
   align-items: center;
   column-gap: .5rem;
-  margin-top: 32px;
+  margin-top: 100px;
   padding-bottom: 50px;
+  position: relative;
 }
 
 .cactocode {
@@ -17,9 +18,9 @@
 }
 
 img{
-  width: 128px;  
+  width: 128px; 
+  background-image: url('../../assets/cacto_code.png');
 }
-
 @media (max-width: 768px) {
   img {
     display: none;

@@ -1,10 +1,10 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
 
 function DadosLeito() {
   return (
     <form>
-      <FormControl fullWidth>
+      <FormControl sx={{marginTop: 1, minWidth: 268}}>
         <InputLabel id="enfermaria_id">Enfermaria</InputLabel>
         <Select
           id="enfermaria"
@@ -23,7 +23,7 @@ function DadosLeito() {
         </Select>
       </FormControl>
 
-      <FormControl fullWidth>
+      <FormControl sx={{m: 1, minWidth: 268}}>
         <InputLabel id="apartamento_id">Apartamento</InputLabel>
         <Select
           id="apartamento"
@@ -41,6 +41,9 @@ function DadosLeito() {
           <MenuItem value={30}>Apt03</MenuItem>
         </Select>
       </FormControl>
+      <Button fullWidth type="submit" variant="contained" color="primary">
+        Finalizar cadastro
+      </Button>
     </form>
   );
 }
