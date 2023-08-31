@@ -7,15 +7,16 @@ import FormularioCadastro from 'components/Formulario/FormularioCadastro';
 
 function App() {
   return (
-    <div>
+    <>
       <Banner />
-
-      <Container component="article" maxWidth="sm">
-        <Typography variant='h3' align='center'>Registro de Visitas</Typography >
-        <FormularioCadastro aoEnviar={aoEnviarForm} validarCPF={validarCPF} />
-      </Container>
-      <Rodape />
-    </div>
+      <section>
+        <Container component="article" maxWidth="sm">
+          <Typography variant='h3' align='center'>Registro de Visitas</Typography >
+          <FormularioCadastro aoEnviar={aoEnviarForm} validarCPF={validarCPF} />
+        </Container>
+        <Rodape />
+      </section>
+    </>
   );
 }
 

@@ -1,12 +1,22 @@
 import { Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
-function DadosLeito() {
+function DadosLeito({ aoEnviar }) {
+  const [enfermaria, setEnfermaria] = useState("")
+  const [apartamento, setApartamento] = useState("")
   return (
-    <form>
-      <FormControl sx={{marginTop: 1, minWidth: 268}}>
+    <form onSubmit={(event) => {
+      event.preventDefault();
+      aoEnviar({enfermaria, apartamento})
+    }}>
+      <FormControl sx={{ marginTop: 1, minWidth: 268 }}>
         <InputLabel id="enfermaria_id">Enfermaria</InputLabel>
         <Select
+          value={enfermaria}
+          onChange={(event) => {
+            event.preventDefault();
+            setEnfermaria(event.target.value);
+          }}
           id="enfermaria"
           label="enfermaria"
           type="text"
@@ -17,15 +27,20 @@ function DadosLeito() {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          <MenuItem value={10}>Enf01</MenuItem>
-          <MenuItem value={20}>Enf02</MenuItem>
-          <MenuItem value={30}>Enf03</MenuItem>
+          <MenuItem value={"Enf01"}>Enf01</MenuItem>
+          <MenuItem value={"Enf02"}>Enf02</MenuItem>
+          <MenuItem value={"Enf03"}>Enf03</MenuItem>
         </Select>
       </FormControl>
 
-      <FormControl sx={{m: 1, minWidth: 268}}>
+      <FormControl sx={{ m: 1, minWidth: 268 }}>
         <InputLabel id="apartamento_id">Apartamento</InputLabel>
         <Select
+          value={apartamento}
+          onChange={(event => {
+            event.preventDefault();
+            setApartamento(event.target.value)
+          })}
           id="apartamento"
           label="apartamento"
           type="text"
