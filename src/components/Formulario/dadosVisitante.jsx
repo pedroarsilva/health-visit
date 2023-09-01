@@ -9,7 +9,7 @@ import {
   Switch
 } from '@mui/material';
 // import { DateTimePicker } from '@mui/x-date-pickers';
-function DadosVisitantes({ aoEnviar, validarCPF }) {
+function DadosVisitantes({ aoEnviar, validacoes }) {
   const [paciente, setPaciente] = useState("");
   const [visitante, setVisitante] = useState("");
   const [cpf, setCpf] = useState("");
@@ -18,6 +18,16 @@ function DadosVisitantes({ aoEnviar, validarCPF }) {
   const [noturno, setNoturno] = useState(false);
   const [acompanhante, setAcompanhante] = useState(false);
   const [erros, setErros] = useState({ cpf: { valido: true, texto: "" } })
+
+  function validarCampos(event) {
+    console.log(event.target);
+    const {name, value} = event.target;
+    const novoEstado = {...erros};
+    novoEstado[name] = validacoes[name](value);
+    setErros(novoEstado);
+    console.log(novoEstado);
+
+  }
 
   return (
     <form
@@ -64,14 +74,12 @@ function DadosVisitantes({ aoEnviar, validarCPF }) {
           setCpf(event.target.value);
         }}
 
-        onBlur={(event) => {
-          const ehValido = validarCPF(cpf);
-          setErros({ cpf: ehValido })
-        }}
+        onBlur={validarCampos}
 
         error={!erros.cpf.valido}
         helperText={erros.cpf.texto}
         id='CPF'
+        name='cpf'
         label='CPF'
         variant='outlined'
         fullWidth

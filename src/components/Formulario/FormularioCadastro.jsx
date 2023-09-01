@@ -4,7 +4,7 @@ import DadosUsuario from "./DadosUsuario";
 import DadosLeito from "./DadosLeito";
 import { Step, StepLabel, Stepper, Typography } from "@mui/material";
 
-function FormularioCadastro({ aoEnviar, validarCPF }) {
+function FormularioCadastro({ aoEnviar, validacoes }) {
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [dadosColetados, setDados] = useState({});
 
@@ -15,9 +15,9 @@ function FormularioCadastro({ aoEnviar, validarCPF }) {
   });
 
   const formularios = [
-    <DadosUsuario aoEnviar={coletarDados} />,
-    <DadosVisitantes aoEnviar={coletarDados} validarCPF={validarCPF} />,
-    <DadosLeito aoEnviar={coletarDados} />,
+    <DadosUsuario aoEnviar={coletarDados} validacoes={validacoes} />,
+    <DadosVisitantes aoEnviar={coletarDados} validacoes={validacoes} />,
+    <DadosLeito aoEnviar={coletarDados} validacoes={validacoes} />,
     <Typography variant="h4" textAlign="center" sx={{ marginTop: 8 }}>Visitante cadastrado com Sucesso!</Typography>,
   ];
 
