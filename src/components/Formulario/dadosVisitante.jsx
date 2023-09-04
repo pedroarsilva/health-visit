@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Button,
   TextField,
@@ -8,8 +8,10 @@ import {
   FormControlLabel,
   Switch
 } from '@mui/material';
+import ValidacoesCadastro from 'contexts/ValidacoesCadastro';
+import useErros from 'hooks/useErros';
 // import { DateTimePicker } from '@mui/x-date-pickers';
-function DadosVisitantes({ aoEnviar, validacoes }) {
+function DadosVisitantes({ aoEnviar }) {
   const [paciente, setPaciente] = useState("");
   const [visitante, setVisitante] = useState("");
   const [cpf, setCpf] = useState("");
@@ -17,24 +19,21 @@ function DadosVisitantes({ aoEnviar, validacoes }) {
   const [diurno, setDiurno] = useState(false);
   const [noturno, setNoturno] = useState(false);
   const [acompanhante, setAcompanhante] = useState(false);
-  const [erros, setErros] = useState({ cpf: { valido: true, texto: "" } })
 
-  function validarCampos(event) {
-    console.log(event.target);
-    const {name, value} = event.target;
-    const novoEstado = {...erros};
-    novoEstado[name] = validacoes[name](value);
-    setErros(novoEstado);
-    console.log(novoEstado);
+  const validacoes = useContext(ValidacoesCadastro)
+  const [erros, validarCampos, possoEnviar] = useErros(validacoes)
 
-  }
+ 
 
   return (
     <form
       className='form'
       onSubmit={(event) => {
         event.preventDefault();
-        aoEnviar({ paciente, visitante, cpf, /*leito ,*/ diurno, noturno, acompanhante })
+        if (possoEnviar()) {
+          aoEnviar({ paciente, visitante, cpf, /*leito ,*/ diurno, noturno, acompanhante })
+        }
+
         setPaciente('');
         setVisitante('');
         setCpf('');
@@ -51,7 +50,11 @@ function DadosVisitantes({ aoEnviar, validacoes }) {
         onChange={(event) => {
           setPaciente(event.target.value);
         }}
+        onBlur={validarCampos}
+        erros={!erros.paciente.valido}
+        helperText={erros.paciente.texto}
         id='Paciente'
+        name='paciente'
         label='Paciente'
         variant='outlined'
         fullWidth
@@ -62,12 +65,17 @@ function DadosVisitantes({ aoEnviar, validacoes }) {
         onChange={(event) => {
           setVisitante(event.target.value);
         }}
+        onBlur={validarCampos}
+        erros={!erros.visitante.valido}
+        helperText={erros.visitante.texto}
         id='Visitante'
+        name='visitante'
         label='Visitante'
         variant='outlined'
         fullWidth
         margin='normal'
       />
+      {/* CPF COM VALIDAÇÃO */}
       <TextField
         value={cpf}
         onChange={(event) => {
@@ -140,7 +148,7 @@ function DadosVisitantes({ aoEnviar, validacoes }) {
           />
 
         </FormGroup>
-        <Button type='submit' variant='contained' color='primary'>Cadastrar</Button>
+        <Button type='submit' variant='contained' color='primary'>Proximo</Button>
       </FormControl>
 
 

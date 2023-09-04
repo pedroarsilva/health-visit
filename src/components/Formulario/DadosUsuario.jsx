@@ -1,13 +1,24 @@
 import { Button, TextField } from "@mui/material";
-import React, { useState } from "react";
+import ValidacoesCadastro from "contexts/ValidacoesCadastro";
+import useErros from "hooks/useErros";
+import React, { useState, useContext } from "react";
 
 function DadosUsuario({ aoEnviar }) {
   const [user, setUser] = useState("");
   const [senha, setSenha] = useState("");
+
+  const validacoes = useContext(ValidacoesCadastro);
+  const [erros, validarCampos, possoEnviar] = useErros(validacoes);
+
+
+  
+
   return (
     <form onSubmit={(event) => {
       event.preventDefault();
-      aoEnviar({ user, senha });
+      if(possoEnviar()){
+        aoEnviar({ user, senha });
+      }
     }}>
       <TextField
         value={user}
@@ -16,6 +27,7 @@ function DadosUsuario({ aoEnviar }) {
           setUser(event.target.value);
         }}
         id="user"
+        name='user'
         label="user"
         type="text"
         variant="outlined"
@@ -29,7 +41,11 @@ function DadosUsuario({ aoEnviar }) {
           event.preventDefault();
           setSenha(event.target.value)
         }}
+        onBlur={validarCampos}
+        error={!erros.senha.valido}
+        helperText={erros.senha.texto}
         id="senha"
+        name='senha'
         label="senha"
         type="password"
         variant="outlined"

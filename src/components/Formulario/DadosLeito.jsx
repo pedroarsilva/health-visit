@@ -18,6 +18,7 @@ function DadosLeito({ aoEnviar }) {
             setEnfermaria(event.target.value);
           }}
           id="enfermaria"
+          name='enfermaria'
           label="enfermaria"
           type="text"
           variant="outlined"
@@ -42,6 +43,7 @@ function DadosLeito({ aoEnviar }) {
             setApartamento(event.target.value)
           })}
           id="apartamento"
+          name='apartamento'
           label="apartamento"
           type="text"
           variant="outlined"
